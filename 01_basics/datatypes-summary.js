@@ -34,3 +34,27 @@ const myFunctions = function () {
 console.log(typeof myFunctions); //typeof show Value datatypes
 
 // https://262.ecma-international.org/5.1/#sec-11.4.3
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Memri
+// Stack (Primitive), Heap (Non-Primitive)
+// Stack uesd to declara variables to giv copy and Heap in giv reference original value
+
+let myname = "sujal";
+
+let anothername = myname;
+anothername = "Mrss";
+
+console.log(myname);
+console.log(anothername);
+
+let userOne = {
+  email: "user@google.com",
+  upi: "user@ybl",
+};
+
+let userTwo = userOne;
+
+userTwo.email = "sasd@google.com";
+console.log(userOne.email);
+console.log(userTwo.email);
