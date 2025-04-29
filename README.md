@@ -11,4 +11,4 @@ This repository is specially designed for beginners who want to learn and practi
 
 - Real-world examples
 
-Hands-on practice with small programs
+- Hands-on practice with small programs
