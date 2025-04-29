@@ -5,7 +5,7 @@ This repository is specially designed for beginners who want to learn and practi
 
 ## 📚 What You Will Learn
 
-Basic concepts of JavaScript
+- Basic concepts of JavaScript
 
 Writing clean and understandable code
 
