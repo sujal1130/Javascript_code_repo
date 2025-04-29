@@ -1,4 +1,4 @@
 # Javascript_code_repo ☕💻🚀
 
 Welcome to Javascript_code_repo! 🚀</br>
-Aa repository specially banavi chhe beginners mate, je loko JavaScript ni sharuvaat karva mange chhe **☕chai aur code 🎥youtube channel**.
+This repository is specially designed for beginners who want to learn and practice JavaScript from scratch. **☕chai aur code 🎥youtube channel**.
