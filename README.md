@@ -9,6 +9,6 @@ This repository is specially designed for beginners who want to learn and practi
 
 - Writing clean and understandable code
 
-Real-world examples
+- Real-world examples
 
 Hands-on practice with small programs
