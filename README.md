@@ -7,7 +7,7 @@ This repository is specially designed for beginners who want to learn and practi
 
 - Basic concepts of JavaScript
 
-Writing clean and understandable code
+- Writing clean and understandable code
 
 Real-world examples
 
