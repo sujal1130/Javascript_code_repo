@@ -1,3 +1,7 @@
+// this is array
+// myArray = ["s", "u"];
+// console.log(myArray[1]);
+
 // singleton
 // Object.create
 
@@ -43,7 +47,3 @@ JsUser.greettingTwo = function () {
 };
 console.log(JsUser.greetting());
 console.log(JsUser.greettingTwo());
-
-// this is array
-// myArray = ["s", "u"];
-// console.log(myArray[1]);
