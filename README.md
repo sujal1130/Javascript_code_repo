@@ -1,7 +1,15 @@
-# Javascript_code_repo ☕💻🚀
+# Welcome Javascript_code_repo ☕💻
 
-Welcome to Javascript_code_repo! 🚀</br>
-This repository is specially designed for beginners who want to learn and practice JavaScript from scratch. **☕chai aur code 🎥 youtube channel**.
+---
+
+## ☕ Chai aur Code 🎥 YouTube Channel
+
+This repository is specially designed for **beginners** who want to **learn and practice JavaScript from scratch**  
+with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
+
+📺 **Watch the full playlist here:** [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists)
+
+---
 
 ## 🎓📖 What You Will Learn 💻
 
