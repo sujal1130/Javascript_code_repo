@@ -24,3 +24,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 ---
 
 ## 🧠 Topics Covered
+
+- Variables (var, let, const)
