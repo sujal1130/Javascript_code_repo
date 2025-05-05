@@ -30,3 +30,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Data Types (String, Number, Boolean, Null, Undefined, Object, Array)
 
 - Operators (Arithmetic, Assignment, Comparison, Logical)
+
+- Functions (Function declaration and expression)
