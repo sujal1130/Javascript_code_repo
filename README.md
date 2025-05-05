@@ -22,3 +22,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - 🧪 Hands-on practice with small programs
 
 ---
+
+## 🧠 Topics Covered
