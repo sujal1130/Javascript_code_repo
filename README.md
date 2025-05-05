@@ -28,3 +28,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Variables (var, let, const)
 
 - Data Types (String, Number, Boolean, Null, Undefined, Object, Array)
+
+- Operators (Arithmetic, Assignment, Comparison, Logical)
