@@ -36,3 +36,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Arrays and Objects (Basics)
 
 - Loops (for, while, do...while)
+
+- Conditionals (if, else, switch)
