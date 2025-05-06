@@ -32,3 +32,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Operators (Arithmetic, Assignment, Comparison, Logical)
 
 - Functions (Function declaration and expression)
+
+- Arrays and Objects (Basics)
