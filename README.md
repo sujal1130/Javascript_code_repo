@@ -38,3 +38,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Loops (for, while, do...while)
 
 - Conditionals (if, else, switch)
+
+- DOM Manipulation (Introduction)
