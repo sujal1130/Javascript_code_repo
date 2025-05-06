@@ -40,3 +40,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Conditionals (if, else, switch)
 
 - DOM Manipulation (Introduction)
+
+- Basic Error Handling
