@@ -34,3 +34,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - Functions (Function declaration and expression)
 
 - Arrays and Objects (Basics)
+
+- Loops (for, while, do...while)
