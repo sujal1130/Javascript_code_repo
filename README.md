@@ -49,5 +49,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 1. Clone this repo:
 ```bash
- git clone https://github.com/your-username/Javascript_code_repo.git
+  git clone https://github.com/your-username/Javascript_code_repo.git
 ```
