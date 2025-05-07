@@ -48,6 +48,8 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 ## 🛠 How to Use This Repository
 
 1. Clone this repo:
+
+  :- Open your terminal and run the following command to clone the repo:
 ```bash
   git clone https://github.com/your-username/Javascript_code_repo.git
 ```
