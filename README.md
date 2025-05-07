@@ -54,3 +54,5 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 2. Open files one by one and read the code.
 
 3. Practice by modifying and running the code.
+
+4. Try writing your own examples after understanding each topic.
