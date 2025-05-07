@@ -51,3 +51,4 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 ```bash
   git clone https://github.com/your-username/Javascript_code_repo.git
 ```
+2. Open files one by one and read the code.
