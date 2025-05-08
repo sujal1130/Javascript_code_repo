@@ -57,4 +57,4 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 3️⃣ Practice by modifying and running the code.
 
-4. Try writing your own examples after understanding each topic.
+4️⃣ Try writing your own examples after understanding each topic.
