@@ -7,7 +7,7 @@
 This repository is specially designed for **beginners** who want to **learn and practice JavaScript from scratch**  
 with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
-📺 **Watch the full playlist here:** [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists) **"Ctrl+LeftClick new tab open in chrome"**
+📺 **Watch the full playlist here:** [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists) **"Ctrl+Left Click new tab open in chrome"**
 
 ---
 
@@ -49,7 +49,7 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 1️⃣ Clone this repo:
 
-  :- Open your terminal and run the following command to clone the repo:
+  :- Open your terminal and run the following command to clone the repo.
 ```bash
   git clone https://github.com/your-username/Javascript_code_repo.git
 ```
