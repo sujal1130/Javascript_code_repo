@@ -55,6 +55,8 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 ```
 2️⃣ Open files one by one and read the code.
 
+- Navigate into the project folder.
+
 3️⃣ Practice by modifying and running the code.
 
 4️⃣ Try writing your own examples after understanding each topic.
