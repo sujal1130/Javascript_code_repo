@@ -63,4 +63,6 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 3️⃣ Practice by modifying and running the code.
 
+- Make small changes to see how the code behaves.
+
 4️⃣ Try writing your own examples after understanding each topic.
