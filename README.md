@@ -65,4 +65,8 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 - Make small changes to see how the code behaves.
 
+- Use console.log() and browser/Node.js to test the output.
+
+
+
 4️⃣ Try writing your own examples after understanding each topic.
