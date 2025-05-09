@@ -67,6 +67,6 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 - Use console.log() and browser/Node.js to test the output.
 
-
+- Try different values and conditions to deepen your understanding.
 
 4️⃣ Try writing your own examples after understanding each topic.
