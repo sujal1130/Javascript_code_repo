@@ -74,3 +74,7 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 - After understanding each concept, create your own mini-examples.
 
 - Save them in a separate folder like /practice-examples.
+
+---
+
+## ✍️ Example
