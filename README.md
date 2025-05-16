@@ -78,3 +78,10 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 ---
 
 ## ✍️ Example
+
+Variable Example:-
+
+```bash
+let name = "John";
+console.log("Hello, " + name);
+```
