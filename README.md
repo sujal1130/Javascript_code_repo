@@ -104,3 +104,5 @@ if (age >= 18) {
 - Start with small programs and gradually move to bigger projects.
 
 - Don't fear errors — they are a part of learning.
+
+- Always try to write clean and readable code.
