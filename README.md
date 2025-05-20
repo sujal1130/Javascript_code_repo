@@ -79,14 +79,14 @@ with the help of the **☕ Chai aur Code 🎥 YouTube Channel**.
 
 ## ✍️ Example
 
-Variable Example:-
+Variable Example :-
 
 ```bash
 let name = "John";
 console.log("Hello, " + name);
 ```
 
-Conditional Example:-
+Conditional Example :-
 ```bash
 let age = 20;
 if (age >= 18) {
@@ -95,3 +95,6 @@ if (age >= 18) {
   console.log("You are not eligible to vote.");
 }
 ```
+--- 
+
+## 📢 Important Notes
