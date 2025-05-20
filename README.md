@@ -98,3 +98,5 @@ if (age >= 18) {
 --- 
 
 ## 📢 Important Notes
+
+- Practice is the key to mastering JavaScript.
