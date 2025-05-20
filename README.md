@@ -106,3 +106,5 @@ if (age >= 18) {
 - Don't fear errors — they are a part of learning.
 
 - Always try to write clean and readable code.
+
+---
