@@ -7,9 +7,9 @@
 ## 📺 Watch & Learn — Chai aur Code 🎥
 
 This repository is specially designed for **beginners** who want to **learn and practice JavaScript from scratch**  
-with the help of the.
+with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists). 
 
-📺 **Watch the full playlist here:** [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists) **"Ctrl+Left Click new tab open in chrome"**
+**"Ctrl+Left Click new tab open in chrome"**
 
 ---
 
