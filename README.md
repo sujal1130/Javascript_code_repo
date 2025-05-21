@@ -9,7 +9,7 @@
 This repository is specially designed for **beginners** who want to **learn and practice JavaScript from scratch**  
 with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists). 
 
-**"Ctrl+Left Click new tab open in chrome"**
+**➡️ (Tip: Ctrl + Left Click to open in a new tab)**
 
 ---
 
