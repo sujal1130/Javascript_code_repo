@@ -1,5 +1,7 @@
 # ☕💻 Welcome Javascript_code_repo 
 
+> A beginner-friendly JavaScript learning repository powered by the 🎥 **Chai aur Code YouTube Channel**
+
 ---
 
 ## ☕ Chai aur Code 🎥 YouTube Channel
