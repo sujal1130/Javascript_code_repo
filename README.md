@@ -37,7 +37,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - 📦 Arrays and Objects (Basics)
 
-- Loops (for, while, do...while)
+- 🔁 Loops (for, while, do...while)
 
 - Conditionals (if, else, switch)
 
