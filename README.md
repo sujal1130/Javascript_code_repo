@@ -25,7 +25,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 ---
 
-## 🧠 Topics Covered
+## 📚 Topics Covered
 
 - Variables (var, let, const)
 
