@@ -29,7 +29,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - 📌 Variables (var, let, const)
 
-- Data Types (String, Number, Boolean, Null, Undefined, Object, Array)
+- 🧮 Data Types (String, Number, Boolean, Null, Undefined, Object, Array)
 
 - Operators (Arithmetic, Assignment, Comparison, Logical)
 
