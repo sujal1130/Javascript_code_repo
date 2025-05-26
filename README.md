@@ -31,7 +31,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - 🧮 Data Types (String, Number, Boolean, Null, Undefined, Object, Array)
 
-- Operators (Arithmetic, Assignment, Comparison, Logical)
+- ➕ Operators (Arithmetic, Assignment, Comparison, Logical)
 
 - Functions (Function declaration and expression)
 
