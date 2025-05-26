@@ -33,7 +33,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - ➕ Operators (Arithmetic, Assignment, Comparison, Logical)
 
-- Functions (Function declaration and expression)
+- 🧩 Functions (Function declaration and expression)
 
 - Arrays and Objects (Basics)
 
