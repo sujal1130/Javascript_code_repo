@@ -35,7 +35,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - 🧩 Functions (Function declaration and expression)
 
-- Arrays and Objects (Basics)
+- 📦 Arrays and Objects (Basics)
 
 - Loops (for, while, do...while)
 
