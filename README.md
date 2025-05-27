@@ -81,14 +81,14 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 ## ✍️ Example
 
-Variable Example :-
+🔤 Variable Example :-
 
 ```bash
 let name = "John";
 console.log("Hello, " + name);
 ```
 
-Conditional Example :-
+🔤 Conditional Example :-
 ```bash
 let age = 20;
 if (age >= 18) {
