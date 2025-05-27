@@ -101,7 +101,7 @@ if (age >= 18) {
 
 ## 📢 Important Notes
 
-- Practice is the key to mastering JavaScript.
+- 💪 Practice is the key to mastering JavaScript.
 
 - Start with small programs and gradually move to bigger projects.
 
