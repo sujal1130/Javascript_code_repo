@@ -39,11 +39,11 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - 🔁 Loops (for, while, do...while)
 
-- Conditionals (if, else, switch)
+- 🔀 Conditionals (if, else, switch)
 
-- DOM Manipulation (Introduction)
+- 🌐 DOM Manipulation (Introduction)
 
-- Basic Error Handling
+- 🛡️ Basic Error Handling
 
 ---
 
