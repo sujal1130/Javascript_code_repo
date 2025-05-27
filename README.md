@@ -105,7 +105,7 @@ if (age >= 18) {
 
 - Start with small programs and build up to real-world projects.
 
-- Don’t be afraid of errors — they are a part of learning.
+- 🐞 Don’t be afraid of errors — they are a part of learning.
 
 - Always try to write clean and readable code.
 
