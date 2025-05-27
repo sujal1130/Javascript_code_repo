@@ -73,9 +73,9 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 4️⃣ Try writing your own examples after understanding each topic.
 
-- After understanding each concept, create your own mini-examples.
+- After understanding a topic, try writing your own mini examples.
 
-- Save them in a separate folder like /practice-examples.
+- Save them in a separate folder like: /practice-examples.
 
 ---
 
