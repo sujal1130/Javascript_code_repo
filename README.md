@@ -57,11 +57,11 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 ```
 2️⃣ Open files one by one and read the code.
 
-- Navigate into the project folder.
+- Go to the project folder.
 
 - Open each file one by one.
 
-- Carefully read and understand the code.
+- Read the code and understand how it works.
 
 3️⃣ Practice by modifying and running the code.
 
