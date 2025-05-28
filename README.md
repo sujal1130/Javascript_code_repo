@@ -103,11 +103,11 @@ if (age >= 18) {
 
 - 💪 Practice is the key to mastering JavaScript.
 
-- Start with small programs and build up to real-world projects.
+- 🔄 Start with small programs and build up to real-world projects.
 
 - 🐞 Don’t be afraid of errors — they are a part of learning.
 
-- Always try to write clean and readable code.
+- ✨ Always try to write clean and readable code.
 
 ---
 
