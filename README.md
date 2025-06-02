@@ -27,7 +27,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 ## 📚 Topics Covered
 
-- 📌 Variables (var, let, const)
+- 📌 Variables (`var`, `let`, `const`)
 
 - 🧮 Data Types (String, Number, Boolean, Null, Undefined, Object, Array)
 
