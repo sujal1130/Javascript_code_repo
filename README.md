@@ -75,7 +75,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - After understanding a topic, try writing your own mini examples.
 
-- Save them in a separate folder like: /practice-examples.
+- Save them in a separate folder like: `/practice-examples`.
 
 ---
 
