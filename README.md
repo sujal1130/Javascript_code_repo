@@ -67,7 +67,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - Make small changes to see how the code behaves.
 
-- Use console.log() and browser/Node.js to test the output.
+- Use `console.log()` and browser/Node.js to test the output.
 
 - Try different values and conditions to deepen your understanding.
 
