@@ -9,7 +9,7 @@
 This repository is specially designed for **beginners** who want to **learn and practice JavaScript from scratch**  
 with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com/@chaiaurcode/playlists). 
 
-**➡️ (Tip: Ctrl + Left Click to open in a new tab)**
+> **➡️ (Tip: Ctrl + Left Click to open in a new tab)**
 
 ---
 
