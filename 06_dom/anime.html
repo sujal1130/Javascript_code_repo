@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AnimeVerse | Premium Anime</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* === GLOBAL === */
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+    body{background:#0b0b0b;color:#fff;}
+
+    /* === NAVBAR === */
+    nav{display:flex;justify-content:space-between;align-items:center;
+      padding:18px 50px;background:rgba(20,20,20,0.85);backdrop-filter:blur(12px);
+      box-shadow:0 4px 20px rgba(0,0,0,.7);position:sticky;top:0;z-index:1000;
+      border-bottom:1px solid rgba(229,9,20,0.3);}
+    nav h1{color:#e50914;font-size:28px;font-weight:800;letter-spacing:1.5px;
+      text-transform:uppercase;cursor:pointer;transition:.3s;}
+    nav h1:hover{color:#fff;text-shadow:0 0 12px #e50914;}
+    nav ul{display:flex;list-style:none;gap:30px;}
+    nav ul li{cursor:pointer;font-weight:500;font-size:16px;color:#ddd;position:relative;transition:.3s;}
+    nav ul li::after{content:"";width:0;height:3px;background:#e50914;position:absolute;left:0;bottom:-6px;transition:.3s;border-radius:2px;}
+    nav ul li:hover{color:#fff;text-shadow:0 0 8px #e50914;}
+    nav ul li:hover::after{width:100%;}
+
+    .nav-right{display:flex;align-items:center;gap:18px;position:relative;}
+    .nav-right input{padding:8px 14px;border-radius:20px;border:none;outline:none;
+      background:#1c1c1c;color:#fff;font-size:14px;transition:.3s;}
+    .nav-right input:focus{background:#2b2b2b;box-shadow:0 0 10px #e50914;}
+    .nav-right img{width:38px;height:38px;border-radius:50%;border:2px solid #e50914;
+      cursor:pointer;transition:.3s;}
+    .nav-right img:hover{transform:scale(1.1);}
+    
+    /* Dropdown */
+    .dropdown{position:absolute;top:55px;right:0;background:#1c1c1c;
+      border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.7);overflow:hidden;
+      flex-direction:column;min-width:160px;display:none;animation:slideDown .25s ease;}
+    .dropdown a{padding:12px 16px;color:#fff;text-decoration:none;transition:.2s;}
+    .dropdown a:hover{background:#e50914;}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+
+    /* === HERO === */
+    .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      background:url("animes.jpg") center/cover no-repeat;position:relative;text-align:center;}
+    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55);}
+    .hero h2,.hero p,.hero button{position:relative;z-index:1;animation:fadeUp .8s ease;}
+    .hero h2{font-size:54px;font-weight:800;text-shadow:2px 2px 10px rgba(0,0,0,.8);}
+    .hero p{margin-top:15px;font-size:20px;opacity:.9;animation-delay:.2s;}
+    .hero button{margin-top:25px;padding:14px 36px;background:#212121;color:#fff;
+      border:2px solid #e50914;border-radius:30px;font-weight:600;font-size:16px;
+      cursor:pointer;transition:.3s;animation-delay:.4s;}
+    .hero button:hover{background:#e50914;transform:scale(1.05);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    /* === ANIME SECTION === */
+    .anime-section{padding:60px 50px;background:linear-gradient(to bottom,#141414,#0b0b0b);}
+    .anime-section h3{font-size:32px;margin-bottom:30px;color:#fff;font-weight:700;
+      border-left:6px solid #e50914;padding-left:15px;text-transform:uppercase;letter-spacing:1px;}
+    .anime-section h3:hover{color:#e50914;text-shadow:0 0 12px #e50914;}
+    .anime-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:25px;}
+    .anime-card{border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.7);cursor:pointer;
+      transition:.3s;position:relative;opacity:0;transform:translateY(20px);}
+    .anime-card.show{opacity:1;transform:translateY(0);transition:.5s;}
+    .anime-card:hover{transform:scale(1.07);box-shadow:0 8px 22px rgba(229,9,20,.6);}
+    .anime-card img{width:100%;height:320px;object-fit:cover;transition:.4s;}
+    .anime-card:hover img{transform:scale(1.1);}
+    .anime-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.95),transparent);
+      padding:18px;opacity:0;transition:.4s;}
+    .anime-card:hover .anime-overlay{opacity:1;}
+    .anime-overlay h4{font-size:18px;font-weight:600;}
+    .anime-overlay p{font-size:14px;color:#bbb;margin-top:5px;}
+
+    /* Loading Dots */
+    .loading{display:none;justify-content:center;align-items:center;margin:40px 0;gap:8px;}
+    .dot{width:12px;height:12px;background:#e50914;border-radius:50%;animation:bounce .6s infinite alternate;}
+    .dot:nth-child(2){animation-delay:.2s;}
+    .dot:nth-child(3){animation-delay:.4s;}
+    @keyframes bounce{to{transform:translateY(-12px);}}
+
+    /* Footer */
+    .footer{background:linear-gradient(to right,#0b0b0b,#141414);padding:50px 20px 25px;text-align:center;border-top:2px solid #e50914;}
+    .footer-logo{font-size:32px;font-weight:900;color:#e50914;letter-spacing:3px;text-shadow:0 0 12px rgba(229,9,20,.8);}
+    .footer-tagline{color:#aaa;font-size:15px;margin-top:6px;}
+    .footer-socials{margin:20px 0;display:flex;justify-content:center;gap:25px;}
+    .footer-socials a{font-size:26px;color:#fff;transition:.3s;}
+    .footer-socials a:hover{color:#e50914;transform:scale(1.2);}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:15px;margin-top:20px;font-size:14px;color:#777;}
+    .footer-bottom span{color:#e50914;}
+
+    /* Responsive */
+    @media(max-width:768px){
+      nav{padding:14px 24px;}nav ul{gap:20px;}
+      .hero h2{font-size:36px;}
+      .hero p{font-size:15px;}
+      .anime-card img{height:240px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <h1>AnimeVerse</h1>
+    <ul>
+      <li>Home</li><li>Anime List</li><li>Trending</li><li>Premium</li>
+    </ul>
+    <div class="nav-right">
+      <input type="text" id="searchBox" placeholder="Search anime..."/>
+      <img src="naruto.jpg" alt="User" id="profilePic"/>
+      <div class="dropdown" id="dropdownMenu">
+        <a href="#">Profile</a><a href="#">Settings</a><a href="#">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>Welcome to AnimeVerse</h2>
+    <p>Watch your favorite Anime in Full HD without ads!</p>
+    <button onclick="goPremium()">Go Premium</button>
+  </section>
+
+  <!-- Anime Section -->
+  <section class="anime-section">
+    <h3>Popular Anime</h3>
+    <div id="loading" class="loading">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <div class="anime-grid" id="animeGrid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h2 class="footer-logo">ANIMEVERSE</h2>
+    <p class="footer-tagline">Your Gateway to the World of Anime</p>
+    <div class="footer-socials">
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="footer-bottom">
+      © 2025 <span>AnimeVerse</span> | Made with <span>❤️</span> for Anime Fans
+    </div>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/4e5f1c0d4a.js" crossorigin="anonymous"></script>
+  <script>
+    const animeList=[{title:"Naruto Shippuden",image:"naruto.jpg",genre:"Action"},
+      {title:"Attack on Titan",image:"Attack-on-Titan1.jpg",genre:"Dark Fantasy"},
+      {title:"One Piece",image:"One-Piece.jpeg",genre:"Adventure"},
+      {title:"Demon Slayer",image:"Demon-Slayer.avif",genre:"Action/Fantasy"}];
+
+    const animeGrid=document.getElementById("animeGrid");
+    const loadingDiv=document.getElementById("loading");
+
+    function renderAnime(list){
+      animeGrid.innerHTML="";
+      list.forEach((anime,i)=>{
+        const card=document.createElement("div");
+        card.classList.add("anime-card");
+        setTimeout(()=>card.classList.add("show"),100*i); // fade-in delay
+        card.innerHTML=`
+          <img src="${anime.image}" alt="${anime.title}">
+          <div class="anime-overlay"><h4>${anime.title}</h4><p>${anime.genre}</p></div>`;
+        animeGrid.appendChild(card);
+      });
+    }
+    renderAnime(animeList);
+
+    // Search Jikan API
+    const searchBox=document.getElementById("searchBox");
+    searchBox.addEventListener("keypress",e=>{
+      if(e.key==="Enter"){
+        let query=searchBox.value.trim();
+        if(query){
+          animeGrid.innerHTML="";loadingDiv.style.display="flex";
+          fetch(`https://api.jikan.moe/v4/anime?q=${query}&limit=12`)
+          .then(r=>r.json()).then(data=>{
+            loadingDiv.style.display="none";
+            if(!data.data.length){animeGrid.innerHTML="<p>No anime found 😢</p>";return;}
+            renderAnime(data.data.map(a=>({title:a.title,image:a.images.jpg.image_url,genre:`Score: ${a.score||"N/A"}`})));
+          }).catch(err=>{
+            loadingDiv.style.display="none";
+            animeGrid.innerHTML="<p>Error fetching anime 😢</p>";
+          });
+        }
+      }
+    });
+
+    // Dropdown
+    const profilePic=document.getElementById("profilePic");
+    const dropdownMenu=document.getElementById("dropdownMenu");
+    profilePic.addEventListener("click",()=>dropdownMenu.style.display=dropdownMenu.style.display==="flex"?"none":"flex");
+    window.addEventListener("click",e=>{if(!e.target.matches("#profilePic"))dropdownMenu.style.display="none";});
+  </script>
+</body>
+</html>
