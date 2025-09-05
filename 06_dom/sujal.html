@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pro Weather — Upgraded</title>
+    <meta name="description" content="Pro Weather — Open-Meteo powered, upgraded" />
+    <link rel="preconnect" href="https://api.open-meteo.com" />
+    <link rel="preconnect" href="https://geocoding-api.open-meteo.com" />
+    <link rel="preconnect" href="https://air-quality-api.open-meteo.com" />
+    <style>
+      :root{
+        --bg:#0b1020; --panel:#0f162e; --ink:#e7ecf4; --muted:#a1afc7;
+        --line:#223055; --accent:#22d3ee; --ok:#34d399; --warn:#f59e0b;
+        --danger:#f87171; --glass: rgba(255,255,255,0.03);
+      }
+      [data-theme="light"]{
+        --bg:linear-gradient(180deg,#f6f9ff,#eef4ff);
+        --panel:#ffffff; --ink:#0b1020; --muted:#475569; --line:#e6eef8;
+        --glass: rgba(0,0,0,0.03);
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%;margin:0;font-family:Inter, Poppins, system-ui, sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+      .wrap{margin:30px 30px;padding:18px}
+      .card{background:var(--panel);border-radius:16px;padding:14px;border:1px solid var(--line);box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter: blur(8px)}
+      header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 6px}
+      .brand{display:flex;gap:12px;align-items:center}
+      .logo{width:44px;height:44px;border-radius:10px;background:conic-gradient(from 120deg,var(--accent),#9333ea,#f472b6);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+      h1{margin:0;font-size:20px}
+      .sub{font-size:12px;color:var(--muted)}
+      .chips{display:flex;gap:8px;flex-wrap:wrap}
+      .chip{padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:13px;color:var(--muted);cursor:pointer}
+
+      .toolbar{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;padding:12px;border-top:1px solid var(--line);margin-top:8px}
+      input[type="text"]{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);outline:none}
+      .group{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;background:var(--glass);border:1px solid var(--line)}
+      .btn{padding:10px 14px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),#3b82f6);color:white;font-weight:600;cursor:pointer}
+      .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
+      .status{padding:10px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;margin-top:12px;border-radius:10px}
+      .status .msg{display:none}
+      .status .msg.show{display:block}
+      .msg.info{color:var(--accent)}
+      .grid{display:grid;grid-template-columns:360px 1fr;gap:16px;padding:16px}
+      @media(max-width:980px){.grid{grid-template-columns:1fr}}
+      .panel{border-radius:12px;padding:14px;background:var(--glass);border:1px solid var(--line)}
+      .panel h3{margin:0 0 12px;color:var(--ink)}
+      .kv{display:grid;grid-template-columns:120px 1fr;gap:8px;margin:8px 0}
+      .hero{display:flex;justify-content:space-between;align-items:center;gap:12px}
+      .weather-big{display:flex;align-items:center;gap:14px}
+      .icon{font-size:44px}
+      .temp{font-size:46px;font-weight:700}
+      .muted{color:var(--muted)}
+      .forecast{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:12px}
+      .day{padding:10px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid var(--line);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column;align-items:center;min-height:110px}
+      .day:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.35)}
+      .tabs{display:flex;gap:8px;margin-top:12px}
+      .tab{padding:8px 10px;border-radius:10px;border:1px solid var(--line);cursor:pointer;color:var(--muted)}
+      .tab.active{background:linear-gradient(135deg,#3b82f6,#9333ea);color:white;border:none}
+      canvas{width:100%;height:220px;border-radius:10px;background:transparent}
+      footer{padding:12px 16px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:12px;border-radius:8px}
+      .suggest{position:relative}
+      .suggest-list{position:absolute;z-index:80;top:46px;left:0;right:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;display:none;max-height:260px;overflow:auto}
+      .suggest-list.show{display:block}
+      .suggest-item{padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+      .suggest-item:hover{background:rgba(255,255,255,0.02)}
+      .controls{display:flex;gap:8px;align-items:center}
+
+      /* small visual elements */
+      .small{font-size:12px;color:var(--muted)}
+      .compass{display:inline-block;transform-origin:center center;transition:transform .4s ease}
+      .loader{width:28px;height:28px;border-radius:50%;border:3px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      .aqi-good{color:var(--ok)} .aqi-moderate{color:var(--warn)} .aqi-bad{color:var(--danger)}
+      .meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+      /* responsive smaller forecast columns on very small screens */
+      @media(max-width:520px){
+        .forecast{grid-template-columns:repeat(3,1fr)}
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="wrap card" id="app">
+      <header>
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>Pro Weather — Upgraded</h1>
+            <div class="sub">City → Geocode → Weather → Charts • Open-Meteo (no key)</div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div id="recent" class="chips" title="Recent cities"></div>
+          <div class="controls">
+            <button id="detect" class="btn ghost" title="Use browser location">Use my location</button>
+            <button id="themeToggle" class="btn ghost" title="Toggle theme">Theme</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <div class="suggest">
+          <input id="city" type="text" placeholder="Type a city (e.g., Surat, IN)" value="Surat" autocomplete="off" />
+          <div id="suggest" class="suggest-list"></div>
+        </div>
+
+        <div class="group" title="Temperature Units">
+          <label><input type="radio" name="u" value="celsius" checked /> °C</label>
+          <label><input type="radio" name="u" value="fahrenheit" /> °F</label>
+        </div>
+
+        <div class="group" title="Wind Units">
+          <label><input type="radio" name="w" value="kmh" checked /> km/h</label>
+          <label><input type="radio" name="w" value="ms" /> m/s</label>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="go" class="btn">Search</button>
+        </div>
+      </div>
+
+      <div class="status">
+        <div id="info" class="msg info show">Type a city and press Search…</div>
+        <div id="ok" class="msg ok"></div>
+        <div id="err" class="msg error"></div>
+      </div>
+
+      <div class="grid">
+        <section class="panel">
+          <h3>Current Weather</h3>
+
+          <div id="current">
+            <div class="muted">No data yet.</div>
+          </div>
+
+          <div class="kv">
+            <div class="muted">Sunrise</div>
+            <div id="sr">—</div>
+          </div>
+          <div class="kv">
+            <div class="muted">Sunset</div>
+            <div id="ss">—</div>
+          </div>
+          <div class="kv">
+            <div class="muted">Humidity</div>
+            <div id="hum">—</div>
+          </div>
+          <div class="kv">
+            <div class="muted">UV Index (max)</div>
+            <div id="uv">—</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <h3 style="margin:0 0 8px">Air Quality</h3>
+            <div id="aqiPanel" class="panel" style="padding:10px;background:transparent;border:1px dashed var(--line)">
+              <div id="aqiContent" class="small muted">AQI data not loaded</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="hero">
+            <div class="weather-big">
+              <div id="bigicon" class="icon" aria-hidden="true">☀️</div>
+              <div>
+                <div id="bigtemp" class="temp">—</div>
+                <div id="bigloc" class="muted">—</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div id="bigdesc" class="muted">—</div>
+              <div style="margin-top:8px" class="small">
+                Wind: <span id="windv">—</span> <span id="winddir"><span class="compass" id="compass">🧭</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabs" role="tablist">
+            <div class="tab active" data-tab="forecast">7-Day Forecast</div>
+            <div class="tab" data-tab="hourly">Next 24h (Temp)</div>
+            <div class="tab" data-tab="rain">Next 24h (Rain)</div>
+          </div>
+
+          <div id="forecast" class="forecast" role="tabpanel"></div>
+
+          <div id="chartbox" role="tabpanel" style="display:none;margin-top:12px">
+            <canvas id="chart"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <footer>Built for learning • Data by <span class="muted">open-meteo.com</span> • No cookies. Recent cities saved locally only.</footer>
+    </div>
+
+    <script>
+      // ---------- Utilities ----------
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+      const fmtTime = (iso) => new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const fmtDate = (iso) => new Date(iso).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+      const WMO = {
+        0:["☀️","Clear sky"],1:["🌤️","Mainly clear"],2:["⛅","Partly cloudy"],3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Depositing rime fog"],
+        51:["🌦️","Light drizzle"],53:["🌦️","Moderate drizzle"],55:["🌧️","Dense drizzle"],61:["🌧️","Slight rain"],63:["🌧️","Moderate rain"],
+        65:["🌧️","Heavy rain"],71:["🌨️","Slight snow"],73:["🌨️","Moderate snow"],75:["❄️","Heavy snow"],80:["🌧️","Rain showers"],95:["⛈️","Thunderstorm"]
+      };
+
+      function show(klass, text='') {
+        $('#info').classList.remove('show'); $('#ok').classList.remove('show'); $('#err').classList.remove('show');
+        const map = {info:'#info', ok:'#ok', error:'#err'};
+        const target = $(map[klass] || '#info');
+        target.textContent = text; target.classList.add('show');
+      }
+
+      // Abort controller for fetches
+      let globalAbort = null;
+      function abortPrevious() {
+        if (globalAbort) {
+          globalAbort.abort();
+        }
+        globalAbort = new AbortController();
+        return globalAbort.signal;
+      }
+
+      // Debounce
+      function debounce(fn,ms=300){let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms)}}
+
+      // ---------- Geocoding ----------
+      async function geocodeCity(name, count=10, signal) {
+        const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=${count}&language=en&format=json`;
+        const res = await fetch(url, {signal});
+        if(!res.ok) throw new Error('Geocoding failed');
+        const json = await res.json();
+        if(!json.results || !json.results.length) return [];
+        return json.results.map(r=>({
+          lat: r.latitude, lon: r.longitude,
+          label: `${r.name}${r.admin1 ? ', '+r.admin1 : ''}, ${r.country_code}`
+        }));
+      }
+
+      // ---------- Weather ----------
+      async function fetchWeather(lat, lon, unit, windUnit, signal) {
+        // Build params
+        const url = new URL('https://api.open-meteo.com/v1/forecast');
+        const params = {
+          latitude: lat, longitude: lon,
+          current_weather: true,
+          hourly: 'temperature_2m,precipitation_probability,precipitation,relative_humidity_2m,windspeed_10m,winddirection_10m',
+          daily: 'temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode,sunrise,sunset,uv_index_max',
+          timezone: 'auto',
+          temperature_unit: unit,
+          wind_speed_unit: windUnit
+        };
+        Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v));
+        const res = await fetch(url.toString(), {signal});
+        if(!res.ok) throw new Error('Weather fetch failed');
+        return res.json();
+      }
+
+      // ---------- Air Quality ----------
+      async function fetchAQI(lat, lon, signal) {
+        // Open-Meteo Air Quality API endpoint
+        // Example: https://air-quality-api.open-meteo.com/v1/air-quality?latitude=35.69&longitude=139.69
+        const url = new URL('https://air-quality-api.open-meteo.com/v1/air-quality');
+        url.searchParams.set('latitude', lat);
+        url.searchParams.set('longitude', lon);
+        url.searchParams.set('hourly', 'pm10,pm2_5,us_aqi');
+        url.searchParams.set('timezone', 'auto');
+        const res = await fetch(url.toString(), {signal});
+        if(!res.ok) throw new Error('AQI fetch failed');
+        return res.json();
+      }
+
+      // ---------- Renderers ----------
+      function renderCurrent(label, data) {
+        const cur = data.current_weather;
+        const tUnit = data.hourly_units?.temperature_2m || (document.querySelector('input[name="u"]:checked').value === 'celsius' ? '°C' : '°F');
+        const [ico,desc] = WMO[cur.weathercode] || ['❔','—'];
+        $('#bigicon').textContent = ico;
+        $('#bigtemp').textContent = `${cur.temperature} ${tUnit}`;
+        $('#bigloc').textContent = label;
+        $('#bigdesc').textContent = desc;
+        $('#current').innerHTML = `
+          <div class="kv"><div class="muted">Location</div><div>${label}</div></div>
+          <div class="kv"><div class="muted">Condition</div><div>${desc}</div></div>
+          <div class="kv"><div class="muted">Temperature</div><div><strong>${cur.temperature} ${tUnit}</strong></div></div>
+          <div class="kv"><div class="muted">Wind</div><div id="windVal">${cur.windspeed} ${data.hourly_units?.windspeed_10m || ''}</div></div>
+        `;
+        // sunrise/sunset/humidity/uv from daily / hourly
+        const d = data.daily || {};
+        $('#sr').textContent = d.sunrise?.[0] ? fmtTime(d.sunrise[0]) : '—';
+        $('#ss').textContent = d.sunset?.[0] ? fmtTime(d.sunset[0]) : '—';
+        const rh = data.hourly?.relative_humidity_2m ? data.hourly.relative_humidity_2m[0] : '—';
+        $('#hum').textContent = rh + (rh === '—' ? '' : '%');
+        $('#uv').textContent = d.uv_index_max?.[0] ?? '—';
+        // wind display
+        const dir = data.hourly?.winddirection_10m?.[0] ?? 0;
+        $('#windv').textContent = `${cur.windspeed} ${data.hourly_units?.windspeed_10m || ''}`;
+        $('#compass').style.transform = `rotate(${dir}deg)`;
+      }
+
+      function renderForecast(data) {
+        const d = data.daily || {};
+        const unitMax = data.daily_units?.temperature_2m_max || '';
+        const unitMin = data.daily_units?.temperature_2m_min || '';
+        const box = $('#forecast');
+        box.innerHTML = '';
+        const days = d.time?.length ? Math.min(d.time.length,7) : 0;
+        for(let i=0;i<days;i++){
+          const code = d.weathercode?.[i] ?? null;
+          const [ico,txt] = WMO[code] || ['❔','—'];
+          const el = document.createElement('div');
+          el.className = 'day';
+          el.innerHTML = `
+            <div class="small">${fmtDate(d.time[i])}</div>
+            <div style="font-size:22px">${ico}</div>
+            <div style="margin:8px 0">${txt}</div>
+            <div><strong>${d.temperature_2m_max[i]}${unitMax}</strong> / ${d.temperature_2m_min[i]}${unitMin}</div>
+            <div class="small">Rain: ${d.precipitation_probability_max?.[i] ?? '—'}%</div>
+          `;
+          box.appendChild(el);
+        }
+      }
+
+      // Chart drawing with requestAnimationFrame
+      let chartRAF = null;
+      function drawLineChart(canvas, labels, values, title) {
+        cancelAnimationFrame(chartRAF);
+        const ctx = canvas.getContext('2d');
+        const DPR = devicePixelRatio || 1;
+        canvas.width = canvas.clientWidth * DPR;
+        canvas.height = 220 * DPR;
+        ctx.scale(DPR, DPR);
+        ctx.clearRect(0,0,canvas.clientWidth,220);
+
+        const pad = {l:36,r:14,t:20,b:28};
+        const innerW = canvas.clientWidth - pad.l - pad.r;
+        const innerH = 220 - pad.t - pad.b;
+        const min = Math.min(...values), max = Math.max(...values);
+        const range = Math.max(1, max - min);
+        const y = v => pad.t + innerH - ((v - min)/range)*innerH;
+        const x = i => pad.l + (i/(values.length-1))*innerW;
+
+        // animate line progress
+        let progress = 0;
+        function step(){
+          progress += 0.03;
+          if(progress>1) progress=1;
+          // background grid
+          ctx.clearRect(0,0,canvas.clientWidth,220);
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted');
+          ctx.font = '12px system-ui';
+          for(let k=0;k<=4;k++){
+            const val = min + (range*k)/4;
+            const yy = y(val);
+            ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+            ctx.beginPath(); ctx.moveTo(pad.l,yy); ctx.lineTo(pad.l+innerW,yy); ctx.stroke();
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted');
+            ctx.fillText(val.toFixed(0), 6, yy+4);
+          }
+          // line
+          ctx.strokeStyle = '#9cc9ff'; ctx.lineWidth = 2; ctx.beginPath();
+          values.forEach((v,i)=>{
+            const xx = x(i), yy = y(v);
+            if(i===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy);
+          });
+          // clip for progress
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(pad.l,0, pad.l + innerW*progress, 220);
+          ctx.clip();
+          ctx.stroke();
+          ctx.restore();
+          // points
+          ctx.fillStyle = '#dbe6ff';
+          values.forEach((v,i)=>{
+            const xx = x(i), yy = y(v);
+            if(i/ (values.length-1) <= progress){
+              ctx.beginPath(); ctx.arc(xx,yy,2.5,0,Math.PI*2); ctx.fill();
+            }
+          });
+          // x labels every 3rd
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted');
+          labels.forEach((lb,i)=>{ if(i%3===0) ctx.fillText(lb, x(i)-10, pad.t+innerH+18)});
+          // title
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink'); ctx.font='13px system-ui';
+          ctx.fillText(title, pad.l, pad.t-6);
+          if(progress<1) chartRAF = requestAnimationFrame(step);
+        }
+        step();
+      }
+
+      function renderHourlyChart(data, type){
+        const box = $('#chartbox');
+        const canvas = $('#chart');
+        const h = data.hourly;
+        // choose next 24 hours
+        const nowIdx = h.time.findIndex(t => new Date(t) >= new Date());
+        const start = nowIdx >=0 ? nowIdx : 0;
+        const end = Math.min(start+24, h.time.length);
+        const labels = h.time.slice(start,end).map(t => new Date(t).toLocaleTimeString([], {hour:'2-digit'}));
+        if(type==='temp'){
+          const vals = h.temperature_2m.slice(start,end);
+          const u = data.hourly_units?.temperature_2m || '';
+          drawLineChart(canvas, labels, vals, `Temperature next 24h (${u})`);
+        } else {
+          const vals = h.precipitation_probability.slice(start,end);
+          drawLineChart(canvas, labels, vals, `Rain probability next 24h (%)`);
+        }
+      }
+
+      // ---------- Recent cities ----------
+      function getRecents(){try{return JSON.parse(localStorage.getItem('recentCities')||'[]')}catch{return[]}}
+      function setRecents(list){localStorage.setItem('recentCities', JSON.stringify(list.slice(0,6))); renderRecents();}
+      function addRecent(loc){const list=getRecents().filter(r=>r.label!==loc.label); list.unshift({lat:loc.lat,lon:loc.lon,label:loc.label}); setRecents(list);}
+      function renderRecents(){const box=$('#recent'); const list=getRecents(); box.innerHTML=list.map((r,i)=>`<span class="chip" data-i="${i}">${r.label}</span>`).join(''); $$('#recent .chip').forEach((el,i)=>el.addEventListener('click',()=>run(list[i])))}
+      renderRecents();
+
+      // ---------- Controller ----------
+      async function run(selected){
+        try{
+          // abort previous
+          const signal = abortPrevious();
+          const cityStr = selected?.label || $('#city').value.trim();
+          if(!cityStr) return show('info','Please type a city name');
+          show('info','Finding locations…');
+          // geocode if needed
+          let loc = selected;
+          if(!loc){
+            const choices = await geocodeCity(cityStr, 6, signal);
+            if(!choices.length){ show('error', `City "${cityStr}" not found. Try adding country code (e.g., Surat, IN)`); return; }
+            loc = choices[0];
+          }
+          const unit = document.querySelector('input[name="u"]:checked').value;
+          const windUnit = document.querySelector('input[name="w"]:checked').value;
+          show('info','Fetching weather…');
+          // fetch weather & aqi in parallel
+          const weatherPromise = fetchWeather(loc.lat, loc.lon, unit, windUnit, signal);
+          const aqiPromise = fetchAQI(loc.lat, loc.lon, signal);
+          const [data, aqi] = await Promise.all([weatherPromise, aqiPromise]);
+          // render
+          renderCurrent(loc.label, data);
+          renderForecast(data);
+          renderHourlyChart(data, 'temp');
+          // show default tab
+          $$('.tab').forEach(t=>t.classList.remove('active')); $$('.tab')[0].classList.add('active');
+          $('#forecast').style.display='grid'; $('#chartbox').style.display='none';
+          addRecent(loc);
+          window.__lastLoc = loc; window.__lastData = data; window.__lastAQI = aqi;
+          renderAQI(aqi);
+          show('ok', `Done ✓ (${loc.label})`);
+        }catch(err){
+          if(err.name==='AbortError'){ console.log('Fetch aborted'); return; }
+          console.error(err);
+          show('error', err.message || String(err));
+        }
+      }
+
+      // Tabs
+      $$('.tab').forEach(tab=>{
+        tab.addEventListener('click', ()=>{
+          $$('.tab').forEach(t=>t.classList.remove('active'));
+          tab.classList.add('active');
+          const name = tab.dataset.tab;
+          if(name==='forecast'){ $('#forecast').style.display='grid'; $('#chartbox').style.display='none'; }
+          else { $('#forecast').style.display='none'; $('#chartbox').style.display='block'; if(window.__lastData) renderHourlyChart(window.__lastData, name==='rain' ? 'rain' : 'temp'); }
+        });
+      });
+
+      // Suggestions
+      const suggestBox = $('#suggest'); const input = $('#city');
+      const updateSuggest = debounce(async ()=>{
+        const q = input.value.trim();
+        if(q.length < 2){ suggestBox.classList.remove('show'); suggestBox.innerHTML=''; return; }
+        try{
+          const signal = abortPrevious();
+          const list = await geocodeCity(q, 6, signal);
+          if(!list.length){ suggestBox.classList.remove('show'); suggestBox.innerHTML=''; return; }
+          suggestBox.innerHTML = list.map((r,i) => `<div class="suggest-item" data-i="${i}">${r.label}</div>`).join('');
+          suggestBox.classList.add('show');
+          $$('#suggest .suggest-item').forEach((el,i)=>el.addEventListener('click', ()=>{
+            suggestBox.classList.remove('show');
+            input.value = list[i].label;
+            run(list[i]);
+          }));
+        }catch(e){ /* ignore network errors here */ }
+      },250);
+      input.addEventListener('input', updateSuggest);
+      document.addEventListener('click', e => { if(!e.target.closest('.suggest')) suggestBox.classList.remove('show') });
+
+      // ---------- AQI rendering ----------
+      function classifyAQI(aqiVal){
+        // we'll use US AQI (us_aqi) categories roughly:
+        if(aqiVal <= 50) return {label:'Good', cls:'aqi-good'};
+        if(aqiVal <= 100) return {label:'Moderate', cls:'aqi-moderate'};
+        return {label:'Unhealthy', cls:'aqi-bad'};
+      }
+      function renderAQI(aqi){
+        try{
+          // get latest hour value
+          const now = aqi?.hourly?.time?.length ? aqi.hourly.time.length-1 : -1;
+          if(now < 0){ $('#aqiContent').textContent = 'AQI data not available'; return; }
+          const usaqi = aqi.hourly.us_aqi?.[now];
+          const pm25 = aqi.hourly.pm2_5?.[now];
+          const pm10 = aqi.hourly.pm10?.[now];
+          const c = classifyAQI(usaqi ?? 0);
+          $('#aqiContent').innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><strong class="${c.cls}">US AQI: ${usaqi ?? '—'} (${c.label})</strong></div>
+              <div class="small muted">${new Date(aqi.hourly.time[now]).toLocaleString()}</div>
+            </div>
+            <div style="margin-top:8px" class="small">PM2.5: ${pm25 ?? '—'} µg/m³ • PM10: ${pm10 ?? '—'} µg/m³</div>
+          `;
+        }catch(e){ $('#aqiContent').textContent = 'AQI parse error' }
+      }
+
+      // ---------- Controls & Events ----------
+      $('#go').addEventListener('click', ()=> run());
+      input.addEventListener('keydown', e => { if(e.key==='Enter') run(); });
+      $$('input[name="u"]').forEach(r => r.addEventListener('change', ()=> { if(window.__lastLoc) run(window.__lastLoc); }));
+      $$('input[name="w"]').forEach(r => r.addEventListener('change', ()=> { if(window.__lastLoc) run(window.__lastLoc); }));
+
+      // theme toggle
+      const themeToggle = $('#themeToggle');
+      const storedTheme = localStorage.getItem('pw_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', storedTheme);
+      themeToggle.textContent = storedTheme === 'light' ? 'Light' : 'Dark';
+      themeToggle.addEventListener('click', ()=>{
+        const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', cur);
+        localStorage.setItem('pw_theme', cur);
+        themeToggle.textContent = cur === 'light' ? 'Light' : 'Dark';
+      });
+
+      // geolocation
+      $('#detect').addEventListener('click', ()=>{
+        if(!navigator.geolocation){ show('error','Geolocation not supported'); return; }
+        show('info','Getting your location…');
+        navigator.geolocation.getCurrentPosition(async pos=>{
+          const lat = pos.coords.latitude, lon = pos.coords.longitude;
+          // reverse geocode: Open-Meteo geocoding supports reverse with name parameter? We'll call search by coordinates using geocoding with name="lat,lon" is not direct; instead just fetch nearest city via geocoding? Open-meteo supports "reverse" param name=?? To keep simple: use geocoding search with name="" and filter by distance by lat/lon; but simpler: call open-meteo reverse geocoding endpoint:
+          try{
+            const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&count=1&language=en`;
+            const res = await fetch(url);
+            const json = await res.json();
+            if(json?.results?.length){
+              const r = json.results[0];
+              const loc = {lat:r.latitude, lon:r.longitude, label:`${r.name}${r.admin1? ', '+r.admin1: ''}, ${r.country_code}`};
+              $('#city').value = loc.label;
+              run(loc);
+            } else {
+              // fallback: run using coords only with a label
+              run({lat, lon, label:`Lat ${lat.toFixed(3)}, Lon ${lon.toFixed(3)}`});
+            }
+          }catch(e){ show('error','Failed to reverse geocode') }
+        }, err => {
+          show('error','Unable to get location: ' + err.message);
+        }, {enableHighAccuracy:true, timeout:10000});
+      });
+
+      // store last data globally from fetch wrapper
+      const _fetch = window.fetch;
+      window.fetch = async (...args) => {
+        const res = await _fetch(...args);
+        try{ const c = res.clone(); const j = await c.json(); if(j && j.current_weather) window.__lastData = j; } catch(e){}
+        return res;
+      };
+
+      // init
+      renderRecents();
+      // trigger initial run
+      (async ()=>{ try{ await run(); }catch(e){ console.warn('Initial run failed',e) } })();
+
+    </script>
+  </body>
+</html>
