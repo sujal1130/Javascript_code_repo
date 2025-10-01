@@ -49,13 +49,13 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 ## 🛠 How to Use This Repository
 
-1️⃣ Clone this repo:
+> 1️⃣ Clone this repo:
 
   :- Open your terminal and run the following command to clone the repo.
 ```bash
   git clone https://github.com/your-username/Javascript_code_repo.git
 ```
-2️⃣ Open files one by one and read the code.
+> 2️⃣ Open files one by one and read the code.
 
 - Go to the project folder.
 
@@ -63,7 +63,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - Read the code and understand how it works.
 
-3️⃣ Practice by modifying and running the code.
+> 3️⃣ Practice by modifying and running the code.
 
 - Make small changes to see how the code behaves.
 
