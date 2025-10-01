@@ -71,7 +71,7 @@ with the help of the [Chai aur Code - YouTube Playlists](https://www.youtube.com
 
 - Try different values and conditions to deepen your understanding.
 
-4️⃣ Try writing your own examples after understanding each topic.
+> 4️⃣ Try writing your own examples after understanding each topic.
 
 - After understanding a topic, try writing your own mini examples.
 
